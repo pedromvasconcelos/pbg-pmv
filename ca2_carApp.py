@@ -1,45 +1,45 @@
-from car2 import Car, ElectricCar, PetrolCar, CarFleet
+from ca2_car import Car, ElectricCar, PetrolCar, CarFleet, HybridCar, DieselCar
 
-myCar = Car()
-print(myCar)
+# myCar = Car()
+# print(myCar)
      
-myCar.setColour('Red')
-print(myCar.getColour())
+# myCar.setColour('Red')
+# print(myCar.getColour())
 
-myCar.setMake('Ferrari')
-print(myCar.getMake())
+# myCar.setMake('Ferrari')
+# print(myCar.getMake())
 
-myCar.setModel('Testarossa')
-print(myCar.getModel())
+# myCar.setModel('Testarossa')
+# print(myCar.getModel())
 
-myCar.setMileage(54)
-print(myCar.getMileage())
+# myCar.setMileage(54)
+# print(myCar.getMileage())
 
-yellowTaxi = Car()
-yellowTaxi.setMake('Toyota')
-yellowTaxi.setModel('Avensis')
-yellowTaxi.setMileage(120004)
+# yellowTaxi = Car()
+# yellowTaxi.setMake('Toyota')
+# yellowTaxi.setModel('Avensis')
+# yellowTaxi.setMileage(120004)
 
-yellowTaxi.paint('Bright Yellow')
-yellowTaxi.move(5)
+# yellowTaxi.paint('Bright Yellow')
+# yellowTaxi.move(5)
 
-print(yellowTaxi.getColour())
-print(yellowTaxi.getMileage())
+# print(yellowTaxi.getColour())
+# print(yellowTaxi.getMileage())
 
-electric = ElectricCar()
-electric.setMake('Nissan')
-electric.setModel('Leaf')
-print(electric.getNumberFuelCells())
-print(electric.getMake())
-print(electric.getModel())
+# electric = ElectricCar()
+# electric.setMake('Nissan')
+# electric.setModel('Leaf')
+# print(electric.getNumberFuelCells())
+# print(electric.getMake())
+# print(electric.getModel())
     
-petrol = PetrolCar()
-petrol.setMake('Ford')
-petrol.setModel('Focus')
-petrol.setEngineSize('1.6')
-print(myCar.engineSize)
-myCar.engineSize = '3.5'
-print(myCar.engineSize)
+# petrol = PetrolCar()
+# petrol.setMake('Ford')
+# petrol.setModel('Focus')
+# petrol.setEngineSize('1.6')
+# print(myCar.engineSize)
+# myCar.engineSize = '3.5'
+# print(myCar.engineSize)
 
 europcar = CarFleet()
 europcar.checkCarsInStock()
