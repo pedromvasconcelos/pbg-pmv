@@ -1,6 +1,8 @@
 
 from ca2_car import Car, ElectricCar, PetrolCar
 
+import pandas as pd
+
 red_car = Car()
 print('Colour ' + red_car.getColour())
 print('Mileage ' + str(red_car.getMileage()))
@@ -29,6 +31,9 @@ car3.setNumberFuelCells(2)
 car3.move(20)
 print('Colour ' + car3.getColour())
 print('Number of fuel cells ' + str(car3.getNumberFuelCells()))
+
+
+
 
 
 class Dealership(object):

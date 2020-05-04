@@ -4,6 +4,7 @@ Created on Tue Sep 11 20:33:58 2018
 
 @author: 99993
 """
+import pandas as pd
 
 class Car(object):
     
@@ -130,12 +131,21 @@ class CarFleet(object):
         return self.__diesel_cars
     
     def checkCarsInStock(self):
-        print('Number of Petrol Cars : ' + str(len(self.getPetrolCars())))
-        print('Number of Diesel Cars : ' + str(len(self.getDieselCars())))
-        print('Number of Hybrid Cars : ' + str(len(self.getHybridCars())))
-        print('Number of Electric Cars : ' + str(len(self.getElectricCars())))
+        stock = pd.read_csv('car_stock.csv')
+
+        print('Number of Petrol Cars : ', stock.at[0,'Current Stock'])
+        print('Number of Diesel Cars : ', stock.at[1,'Current Stock'])
+        print('Number of Hybrid Cars : ', stock.at[2,'Current Stock'])
+        print('Number of Electric Cars : ', stock.at[3,'Current Stock'])
         
-        
+    def write_csv(self):
+        df = pd.DataFrame({'Type of car':['Petrol', 'Diesel', 'Hybrid', 'Electric'],
+                           'Initial Stock':[20,10,4,6],
+                           'Current Stock': [str(len(self.getPetrolCars())),
+                                              str(len(self.getDieselCars())),
+                                              str(len(self.getHybridCars())),
+                                              str(len(self.getElectricCars()))]})
+        df.to_csv('car_stock.csv', index = False)
         
     def rent(self, type):
         if type == 'P':
@@ -150,7 +160,7 @@ class CarFleet(object):
     def returnCar(self, type, car):
         if type == 'P':
             self.__petrol_cars.append(car)
-        elif type == 'E':
+        elif type == 'D':
             self.__diesel_cars.append(car)
         elif type == 'H':
             self.__hybrid_cars.append(car)
@@ -164,16 +174,15 @@ class CarFleet(object):
         answer = input(msg)
         while answer == 'R' or answer == 'U':
             if answer == 'R':
-                type = input('What car would you like to rent? -/nP for petrol;/nD for Diesel;/nH for Hybrid;/nE for electric')
+                type = input('What car would you like to rent? -\nP for petrol;\nD for Diesel;\nH for Hybrid;\nE for electric\n please enter one of the above letters:  ')
                 rentedCar = self.rent(type)
+                self.write_csv()
             elif answer == 'U':
-                type = input('What car would you like to return -/nP for petrol;/nD for Diesel;/nH for Hybrid;/nE for electric')
+                type = input('What car would you like to return -\nP for petrol;\nD for Diesel;\nH for Hybrid;\nE for electric\n please enter one of the above letters:  ')
                 self.returnCar(type, rentedCar)
+                self.write_csv()
             self.checkCarsInStock()
             answer = input(msg)
-    
-    
-    
     
     
     

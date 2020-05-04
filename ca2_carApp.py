@@ -42,17 +42,20 @@ from ca2_car import Car, ElectricCar, PetrolCar, CarFleet, HybridCar, DieselCar
 # print(myCar.engineSize)
 
 europcar = CarFleet()
+# europcar.checkCarsInStock()
+# petrol = europcar.rent('P')
+# europcar.checkCarsInStock()
+# electric = europcar.rent('E')
+# europcar.checkCarsInStock()
+# europcar.returnCar('P', petrol)
+# europcar.checkCarsInStock()
+# anotherElectric = europcar.rent('E')
+# europcar.checkCarsInStock()
+# europcar.returnCar('E', anotherElectric)
 europcar.checkCarsInStock()
-petrol = europcar.rent('P')
-europcar.checkCarsInStock()
-electric = europcar.rent('E')
-europcar.checkCarsInStock()
-europcar.returnCar('P', petrol)
-europcar.checkCarsInStock()
-anotherElectric = europcar.rent('E')
-europcar.checkCarsInStock()
-europcar.returnCar('E', anotherElectric)
-europcar.checkCarsInStock()
+
+europcar.write_csv()
+
 
 europcar.mainMenu()
 
