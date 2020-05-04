@@ -155,7 +155,7 @@ class CarFleet(object):
         stock = pd.read_csv('car_stock.csv')
         return stock.at[3,'Initial Stock']
     
-    def readElctricCarStock(self):
+    def ElectricCarStock(self):
         return len(self.getElectricCars())
     
     def checkAvailableStockforRent(self,type):
