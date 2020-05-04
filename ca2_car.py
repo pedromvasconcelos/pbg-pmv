@@ -109,7 +109,7 @@ class CarFleet(object):
         self.__electric_cars = []
         self.__diesel_cars = []
         self.__hybrid_cars = []
-        for i in range(1, 21):
+        for i in range(1,21):
             self.__petrol_cars.append(PetrolCar())
         for i in range(1, 7):
             self.__electric_cars.append(ElectricCar())
@@ -130,9 +130,56 @@ class CarFleet(object):
     def getDieselCars(self):
         return self.__diesel_cars
     
+    def readInitialPetrolStock(self):
+        stock = pd.read_csv('car_stock.csv')
+        return stock.at[0,'Initial Stock']
+    
+    def PetrolCarStock(self):
+        return len(self.getPetrolCars())
+    
+    def readInitialDieselStock(self):
+        stock = pd.read_csv('car_stock.csv')
+        return stock.at[1,'Initial Stock']
+    
+    def DieselCarStock(self):
+        return len(self.getDieselCars())
+    
+    def readInitialHybridStock(self):
+        stock = pd.read_csv('car_stock.csv')
+        return stock.at[2,'Initial Stock']
+    
+    def HybridCarStock(self):
+        return len(self.getHybridCars())    
+
+    def readInitialElectricStock(self):
+        stock = pd.read_csv('car_stock.csv')
+        return stock.at[3,'Initial Stock']
+    
+    def readElctricCarStock(self):
+        return len(self.getElectricCars())
+    
+    def checkAvailableStockforRent(self,type):
+        if type == 'P':
+            return  self.PetrolCarStock()
+        elif type == 'D':
+            return  self.DieselCarStock()
+        elif type == 'H':
+            return  self.HybridCarStock()   
+        elif type == 'E':
+            return  self.ElectricCarStock()
+        
+    def checkAvailableStockforReturn(self,type):
+        if type == 'P':
+            return self.readInitialPetrolStock() - self.PetrolCarStock()
+        elif type == 'D':
+            return self.readInitialDieselStock() - self.DieselCarStock()
+        elif type == 'H':
+            return self.readInitialHybridStock() - self.HybridCarStock()   
+        elif type == 'E':
+            return self.readInitialElectricStock() - self.ElectricCarStock()        
+        
     def checkCarsInStock(self):
         stock = pd.read_csv('car_stock.csv')
-
         print('Number of Petrol Cars : ', stock.at[0,'Current Stock'])
         print('Number of Diesel Cars : ', stock.at[1,'Current Stock'])
         print('Number of Hybrid Cars : ', stock.at[2,'Current Stock'])
@@ -166,24 +213,6 @@ class CarFleet(object):
             self.__hybrid_cars.append(car)
         elif type == 'E':
             self.__electric_cars.append(car)
-
-    def mainMenu(self):
-        print('Welcome to Europcar')
-        rentedCar = None
-        msg = 'Would you like to rent a car R, return a car U, any key to quit?'
-        answer = input(msg)
-        while answer == 'R' or answer == 'U':
-            if answer == 'R':
-                type = input('What car would you like to rent? -\nP for petrol;\nD for Diesel;\nH for Hybrid;\nE for electric\n please enter one of the above letters:  ')
-                rentedCar = self.rent(type)
-                self.write_csv()
-            elif answer == 'U':
-                type = input('What car would you like to return -\nP for petrol;\nD for Diesel;\nH for Hybrid;\nE for electric\n please enter one of the above letters:  ')
-                self.returnCar(type, rentedCar)
-                self.write_csv()
-            self.checkCarsInStock()
-            answer = input(msg)
-    
     
     
     

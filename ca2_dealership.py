@@ -1,81 +1,47 @@
 
-from ca2_car import Car, ElectricCar, PetrolCar
-
-import pandas as pd
-
-red_car = Car()
-print('Colour ' + red_car.getColour())
-print('Mileage ' + str(red_car.getMileage()))
-print('Make ' + red_car.getMake())
-
-red_car.setMake('Ferrari')
-
-print('Make ' + red_car.getMake())
-
-print('Getting a paint job - the new colour is ', red_car.setColour('red'))
-
-print('Colour ' + red_car.getColour())
-
-print('Car moved' + str(red_car.move(15)) + 'kms')
-print('Mileage ' + str(red_car.getMileage()))
-
-print('Engine Size ' + red_car.engineSize)
-red_car.engineSize = '3.9'
-print('Engine Size ' + red_car.engineSize)
+from ca2_car import CarFleet
 
 
-car3 = ElectricCar()
-car3.setColour('white')
-car3.setMileage(500)
-car3.setNumberFuelCells(2)
-car3.move(20)
-print('Colour ' + car3.getColour())
-print('Number of fuel cells ' + str(car3.getNumberFuelCells()))
+dealership = CarFleet()
+dealership.write_csv() #initialize
 
-
-
-
-
-class Dealership(object):
-
-    def __init__(self):
-        self.electric_cars = []
-        self.petrol_cars = []
-
-    def create_current_stock(self):
-        for i in range(20):
-           self.electric_cars.append(ElectricCar())
-        for i in range(10):
-           self.petrol_cars.append(PetrolCar())
-
-    def stock_count(self):
-        print('petrol cars in stock ' + str(len(self.petrol_cars)))
-        print('electric cars in stock ' + str(len(self.electric_cars)))
-
-    def rent(self, car_list, amount):
-        if len(car_list) < amount:
-            print('Not enough cars in stock')
-            return
-        total = 0
-        while total < amount:
-           car_list.pop()
-           total = total + 1
-
-    def process_rental(self):
-        answer = input('would you like to rent a car? y/n')
-        if answer == 'y':
-            answer = input('what type would you like? p/e')
-            amount = int(input('how many would you like?'))
-            if answer == 'p':
-                self.rent(self.petrol_cars, amount)
+def mainMenu():
+    print('Welcome to DBS Rental Service')
+    print('\n********\nThis is our current stock:')
+    dealership.checkCarsInStock()
+    Car = None
+    msg = 'Would you like to rent a car or return a car?\n********\nPress:\nR - Rent\nU - Retur\nS - Check current cars in stockn\nany other key to quit'
+    answer = input(msg)
+    while answer == 'R' or answer == 'U' or answer =='S':
+        if answer == 'R':
+            type = input('What car would you like to rent? -\nP for petrol;\nD for Diesel;\nH for Hybrid;\nE for electric\n please enter one of the above letters:  ')
+            amount = int(input('Please enter the amount of cars to Rent:  '))
+            total = 0
+            if dealership.checkAvailableStockforRent(type) < amount:
+                print('Not enough cars available')
+                break
             else:
-                self.rent(self.electric_cars, amount)
-        self.stock_count()
+                while total < amount:
+                    dealership.rent(type)
+                    total = total + 1
+                dealership.write_csv()
+        elif answer == 'U':
+            type = input('What car would you like to return -\nP for petrol;\nD for Diesel;\nH for Hybrid;\nE for electric\n please enter one of the above letters:  ')
+            amount = int(input('Please enter the amount of cars to Return:  '))
+            total = 0
+            if dealership.checkAvailableStockforReturn(type) < amount:
+                print('The amounts to return is higher than initial stock available')
+                break
+                while total < amount:
+                    dealership.returnCar(type, Car)
+                    total = total + 1
+                dealership.write_csv()
+        elif answer == 'S':
+            dealership.checkCarsInStock()            
+        answer = input(msg)
 
-dealership = Dealership()
-dealership.create_current_stock()
-proceed = 'y'
-while proceed == 'y':
-    dealership.process_rental()
-    proceed = input('continue? y/n')
+
+
+
+mainMenu()
 
